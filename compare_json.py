@@ -2,8 +2,8 @@ import json
 import os
 
 # Пути к JSON-файлам
-ts_file_path = "file_TS.json"
-xml_file_path = "file_XML.json"
+ts_file_path = "integration_TS.json"
+xml_file_path = "integration_XML.json"
 
 # Читаем JSON-файлы
 with open(ts_file_path, "r", encoding="utf-8") as ts_file:
@@ -47,6 +47,13 @@ for ts_entry in ts_data:
         else:
             log_results.append(f"Type '{ts_type}': Changes found - {', '.join(changes)}")
 
+
+# Добавляем порядок блоков в лог
+log_results.append("\n=== Order of Blocks in file_TS.json ===")
+log_results.append(" -> ".join([entry["type"] for entry in ts_data]))
+
+log_results.append("\n=== Order of Blocks in file_XML.json ===")
+log_results.append(" -> ".join([entry["type"] for entry in xml_data]))
 
 # Проверяем, существует ли папка 'compare', если нет — создаём её
 os.makedirs("compare", exist_ok=True)
